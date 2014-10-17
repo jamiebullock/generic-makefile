@@ -23,8 +23,8 @@ For example, if your files are `test/foo.c` `test/bar.c` then `foo.c` and `bar.c
 
 The default options can be overridden by adding a `Make.config` file parallel to the `Makefile`. For example the following `Make.config` will create a static library called libfoo.a by compiling all C++ files in directories `bar` and `baz`:
 
-> SUFFIX = .cpp
-> DIRS = bar baz
+> SUFFIX = .cpp  
+> DIRS = bar baz  
 > NAME = foo
 
 The `make debug` target will build a binary file suitable for debugging.
