@@ -86,7 +86,7 @@ debug: $(OUT)
 
 $(OUT_DIR)/%.o: %$(SUFFIX)
 	@mkdir -p $(dir $@)
-	$(CXX) $(FLAGS) -MMD -MP -fPIC -c $< -o $@
+	$(CXX) $(CXXFLAGS) $(FLAGS) -MMD -MP -fPIC -c $< -o $@
 
 clean:
 	$(RM) -r $(OUT) $(OUT_DIR)
