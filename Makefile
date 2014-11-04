@@ -66,9 +66,9 @@ else
 endif
 
 ifeq "$(SUFFIX)" ".cpp"
-    CXX = g++
+    COMPILER = $(CXX)
 else ifeq "$(SUFFIX)" ".c"
-    CXX = gcc
+    COMPILER = $(CC)
 endif
 
 .SUFFIXES:
@@ -78,7 +78,7 @@ $(OUT): $(OBJ)
 ifeq "$(LIBRARY)" "static"
 	$(AR) rcs $@ $^
 else
-	$(CXX) $(LDFLAGS) $^ -o $@
+	$(COMPILER) $(LDFLAGS) $^ -o $@
 endif
 
 debug: FLAGS = $(DEBUG_FLAGS)
@@ -86,7 +86,7 @@ debug: $(OUT)
 
 $(OUT_DIR)/%.o: %$(SUFFIX)
 	@mkdir -p $(dir $@)
-	$(CXX) $(CXXFLAGS) $(FLAGS) -MMD -MP -fPIC -c $< -o $@
+	$(COMPILER) $(CXXFLAGS) $(FLAGS) -MMD -MP -fPIC -c $< -o $@
 
 clean:
 	$(RM) -r $(OUT) $(OUT_DIR)
