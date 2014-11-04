@@ -13,19 +13,19 @@
 #### Instead override these variables in a separate Make.config file if needed
 
 # The name of the product to build (default uses parent directory name)
-NAME = $(notdir $(CURDIR))
+NAME ?= $(notdir $(CURDIR))
 # The file suffix of source files, can be .c or .cpp
-SUFFIX = .c
+SUFFIX ?= .c
 # List of directories containing source files to be compiled
-DIRS = .
+DIRS ?= .
 # Flags to pass to the compiler for release builds
-FLAGS = -O3
+FLAGS ?= -O3
 # Flags to pass to the compiler for debug builds
-DEBUG_FLAGS = -O0 -g
+DEBUG_FLAGS ?= -O0 -g
 # Flags to pass to the linker
-LDFLAGS =
+LDFLAGS ?=
 # Type of product to build: "shared" for a shared library, "static" for a static library, empty for standalone
-LIBRARY =
+LIBRARY ?= static
 
 ##############################################
 ### Do not modify anything below this line ###
