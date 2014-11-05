@@ -26,6 +26,8 @@ DEBUG_FLAGS ?= -O0 -g
 LDFLAGS ?=
 # Type of product to build: "shared" for a shared library, "static" for a static library, empty for standalone
 LIBRARY ?= static
+# Prefix to the path that the "install" target will install into. libs to $(PREFIX)/lib, executables to $(PREFIX)/bin
+PREFIX ?= /usr/local
 
 ##############################################
 ### Do not modify anything below this line ###
@@ -40,6 +42,7 @@ OBJ=$(addprefix $(OUT_DIR)/,$(OBJ_))
 DEPS=$(OBJ:.o=.d)
 SHARED_SUFFIX = dll
 STATIC_SUFFIX = lib
+INSTALL_DIR = $(PREFIX)/lib
 
 ifeq ($(OS),Windows_NT)
 else
@@ -63,6 +66,7 @@ else ifeq "$(LIBRARY)" "static"
     OUT=lib$(NAME).$(STATIC_SUFFIX)
 else
     OUT=$(NAME)
+    INSTALL_DIR = $(PREFIX)/bin
 endif
 
 ifeq "$(SUFFIX)" ".cpp"
@@ -72,7 +76,7 @@ else ifeq "$(SUFFIX)" ".c"
 endif
 
 .SUFFIXES:
-.PHONY: debug clean
+.PHONY: debug clean install uninstall
 
 $(OUT): $(OBJ)
 ifeq "$(LIBRARY)" "static"
@@ -88,7 +92,14 @@ $(OUT_DIR)/%.o: %$(SUFFIX)
 	@mkdir -p $(dir $@)
 	$(COMPILER) $(CXXFLAGS) $(FLAGS) -MMD -MP -fPIC -c $< -o $@
 
+install: $(OUT)
+	@install -d $(INSTALL_DIR)
+	@install $(OUT) $(INSTALL_DIR)
+
+uninstall:
+	@$(RM) $(INSTALL_DIR)/$(OUT)
+
 clean:
 	$(RM) -r $(OUT) $(OUT_DIR)
 
--include $(DEPS)
+-include: $(DEPS)
