@@ -33,21 +33,21 @@ PREFIX ?= /usr/local
 ### Do not modify anything below this line ###
 ##############################################
 
--include Make.config
-
-OUT_DIR = .build
-SRC := $(foreach dir, $(DIRS), $(wildcard $(dir)/*$(SUFFIX)))
-OBJ_ = $(SRC:$(SUFFIX)=.o)
-OBJ=$(addprefix $(OUT_DIR)/,$(OBJ_))
-DEPS=$(OBJ:.o=.d)
-SHARED_SUFFIX = dll
-STATIC_SUFFIX = lib
-INSTALL_DIR = $(PREFIX)/lib
-
 ifeq ($(OS),Windows_NT)
 else
     PLATFORM := $(shell uname -s)
 endif
+
+-include Make.config
+
+OUT_DIR := .build
+SRC := $(foreach dir, $(DIRS), $(wildcard $(dir)/*$(SUFFIX)))
+OBJ_ := $(SRC:$(SUFFIX)=.o)
+OBJ := $(addprefix $(OUT_DIR)/,$(OBJ_))
+DEPS := $(OBJ:.o=.d)
+SHARED_SUFFIX := dll
+STATIC_SUFFIX := lib
+INSTALL_DIR := $(PREFIX)/lib
 
 ifeq "$(PLATFORM)" "Darwin"
     SHARED_SUFFIX = dylib
