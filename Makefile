@@ -50,13 +50,13 @@ STATIC_SUFFIX := lib
 INSTALL_DIR := $(PREFIX)/lib
 
 ifeq "$(PLATFORM)" "Darwin"
-    SHARED_SUFFIX = dylib
-    STATIC_SUFFIX = a
+    SHARED_SUFFIX := dylib
+    STATIC_SUFFIX := a
 endif
 
 ifeq "$(PLATFORM)" "Linux"
-    SHARED_SUFFIX = so
-    STATIC_SUFFIX = a
+    SHARED_SUFFIX := so
+    STATIC_SUFFIX := a
 endif
 
 ifeq "$(LIBRARY)" "shared"
@@ -66,13 +66,13 @@ else ifeq "$(LIBRARY)" "static"
     OUT=lib$(NAME).$(STATIC_SUFFIX)
 else
     OUT=$(NAME)
-    INSTALL_DIR = $(PREFIX)/bin
+    INSTALL_DIR := $(PREFIX)/bin
 endif
 
 ifeq "$(SUFFIX)" ".cpp"
-    COMPILER = $(CXX)
+    COMPILER := $(CXX)
 else ifeq "$(SUFFIX)" ".c"
-    COMPILER = $(CC)
+    COMPILER := $(CC)
 endif
 
 .SUFFIXES:
