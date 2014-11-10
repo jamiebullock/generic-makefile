@@ -92,6 +92,11 @@ $(OUT_DIR)/%.o: %$(SUFFIX)
 	@mkdir -p $(dir $@)
 	@$(COMPILER) $(CXXFLAGS) $(FLAGS) -MMD -MP -fPIC -c $< -o $@
 
+check: $(OUT)
+	@./$(OUT)
+
+test: check
+
 install: $(OUT)
 	@install -d $(INSTALL_DIR)
 	@install $(OUT) $(INSTALL_DIR)
